@@ -1,0 +1,14 @@
+{
+  "name": "boxed-ui",
+  "description": "boxed-ui, a Claude Code mod",
+  "owner": {
+    "name": "Sebastian Patino-Lang"
+  },
+  "plugins": [
+    {
+      "name": "boxed-ui",
+      "source": "./",
+      "description": "Padded, themeable boxes around prompts and replies; Claude Code keeps rendering the content"
+    }
+  ]
+}
