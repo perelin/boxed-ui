@@ -1,0 +1,11 @@
+{
+  "description": "Terracotta prompts, charcoal replies (light: sand and paper)",
+  "dark": {
+    "prompt": { "bg": "#4a2a1c" },
+    "reply": { "bg": "#1a1a1a" }
+  },
+  "light": {
+    "prompt": { "bg": "#f3dccf" },
+    "reply": { "bg": "#f6f2ec" }
+  }
+}

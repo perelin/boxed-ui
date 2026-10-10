@@ -1,0 +1,11 @@
+{
+  "description": "Navy prompts, near-black replies (light: ice and mist)",
+  "dark": {
+    "prompt": { "bg": "#15204a" },
+    "reply": { "bg": "#0d0f17" }
+  },
+  "light": {
+    "prompt": { "bg": "#dbe5fb" },
+    "reply": { "bg": "#f2f5fb" }
+  }
+}

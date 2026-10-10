@@ -1,0 +1,6 @@
+{
+  "name": "boxed-ui",
+  "version": "0.1.0",
+  "author": { "name": "Sebastian Patino-Lang" },
+  "description": "Padded, themeable boxes around prompts and replies; Claude Code keeps rendering the content"
+}

@@ -1,0 +1,7 @@
+{
+  "description": "Follows your Claude Code theme: prompt in its message background, replies in a subtle frame",
+  "dark": {
+    "prompt": { "bg": "userMessageBackground" },
+    "reply": { "border": "subtle" }
+  }
+}
