@@ -11,7 +11,17 @@ Inspired by [yugal1107/ui-themes](https://github.com/yugal1107/ui-themes), built
 
 ## Install
 
-During development:
+In a Claude Code session:
+
+```
+/plugin install boxed-ui --marketplace perelin/boxed-ui
+```
+
+Answer `y` to add the marketplace, then pick a scope (user scope for every project). The repository is private, so git needs access to it (SSH key or `gh auth`). New sessions load the mod; `/plugin` turns it off or on.
+
+After pushing changes: `/plugin marketplace update boxed-ui`, then restart the session.
+
+During development, run the mod straight from the checkout instead:
 
 ```
 claude --plugin-dir ~/code/p2lab/boxed-ui
