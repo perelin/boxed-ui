@@ -5,6 +5,7 @@ import { pickMode, styleFor } from '../hooks/register'
 
 const THEMES: Record<string, string> = {
   'native.json': JSON.stringify({ dark: { prompt: { bg: 'userMessageBackground' }, reply: { border: 'subtle' } } }),
+  'outline.json': JSON.stringify({ dark: { prompt: { border: '#5b9bd5' }, reply: { border: '#e8834e' } } }),
   'claude-warm.json': JSON.stringify({
     dark: { prompt: { bg: '#4a2a1c' }, reply: { bg: '#1a1a1a' } },
     light: { prompt: { bg: '#f3dccf' }, reply: { bg: '#f6f2ec' } },
@@ -117,4 +118,16 @@ test('other tool results and a refused dialog keep their own row', async ($, on)
     expect(json).toContain('engine-result')
     expect(json).not.toContain('#4a2a1c')
   }
+})
+
+test('a framed prompt pads above and below like a filled one', async ($, on) => {
+  world(on, { theme: 'dark', active: 'outline' })
+  const json = JSON.stringify(await $.ui.render({
+    surface: 'terminal', component: 'UserMessage', requestId: 'u3',
+    props: { text: 'hello', origin: { kind: 'composer' }, isExpanded: false },
+  } as any))
+  expect(json).toContain('#5b9bd5')
+  expect(json).toContain('"paddingTop":1')
+  expect(json).toContain('"paddingBottom":1')
+  expect(json).not.toContain('backgroundColor')
 })

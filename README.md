@@ -51,6 +51,7 @@ With `/theme` set to a light or dark theme, the matching variant is used. Claude
 | `native` (default) | Prompt in Claude Code's own message background, replies in a subtle rounded frame |
 | `claude-warm` | Terracotta prompts, charcoal replies; light: sand and paper |
 | `night-blue` | Navy prompts, near-black replies; light: ice and mist |
+| `outline` | No fill: prompts in a blue frame, replies in an orange one |
 
 ### Your own
 
