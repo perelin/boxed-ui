@@ -1,0 +1,11 @@
+{
+  "description": "Frames only, no fill: blue prompts, orange replies",
+  "dark": {
+    "prompt": { "border": "#5b9bd5" },
+    "reply": { "border": "#e8834e" }
+  },
+  "light": {
+    "prompt": { "border": "#2f6db3" },
+    "reply": { "border": "#c25a2c" }
+  }
+}
