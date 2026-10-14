@@ -57,15 +57,14 @@ export function styleFor(theme: Theme | undefined, m: Mode, part: 'prompt' | 're
 }
 
 // A reply row from the engine starts with its own blank line, so a reply box pads only below
-// to sit even; a prompt is drawn here and pads both sides.
+// to sit even; a prompt is drawn here and pads both sides, framed or filled alike.
 function boxProps(s: BoxStyle, part: 'prompt' | 'reply') {
-  const pad = s.bg ? 1 : 0
   return {
     flexDirection: 'column' as const,
     marginTop: 1,
     paddingX: s.border ? 1 : 2,
-    paddingTop: part === 'reply' ? 0 : pad,
-    paddingBottom: part === 'reply' ? 1 : pad,
+    paddingTop: part === 'reply' ? 0 : 1,
+    paddingBottom: 1,
     ...(s.bg ? { backgroundColor: s.bg } : {}),
     ...(s.border ? { borderStyle: 'round', borderColor: s.border } : {}),
   }
