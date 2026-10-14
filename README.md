@@ -2,6 +2,8 @@
 
 A Claude Code mod that sets your prompts and Claude's replies apart in padded, themeable boxes. Your answers in Claude's question dialog ("User answered Claude's questions") get the prompt box too.
 
+![boxed-ui with the outline theme: the prompt and the dialog answer in blue frames, Claude's reply in an orange one](docs/screenshots/outline.png)
+
 Inspired by [yugal1107/ui-themes](https://github.com/yugal1107/ui-themes), built differently on purpose:
 
 - **Claude Code still renders the replies.** The mod only puts a box around the engine's own drawing (`next(e)`), so markdown, nested lists, code blocks, tables and links look exactly as without it. No second markdown parser.
@@ -17,15 +19,9 @@ In a Claude Code session:
 /plugin install boxed-ui --marketplace perelin/boxed-ui
 ```
 
-Answer `y` to add the marketplace, then pick a scope (user scope for every project). The repository is private, so git needs access to it (SSH key or `gh auth`). New sessions load the mod; `/plugin` turns it off or on.
+Answer `y` to add the marketplace, then pick a scope (user scope for every project). New sessions load the mod; `/plugin` turns it off or on.
 
-After pushing changes: `/plugin marketplace update boxed-ui`, then restart the session.
-
-During development, run the mod straight from the checkout instead:
-
-```
-claude --plugin-dir ~/code/p2lab/boxed-ui
-```
+To update: `/plugin marketplace update boxed-ui`, `/plugin update boxed-ui@boxed-ui`, then `/reload-plugins` in a running session.
 
 ## Use
 
@@ -49,9 +45,17 @@ With `/theme` set to a light or dark theme, the matching variant is used. Claude
 | Theme | Look |
 |---|---|
 | `native` (default) | Prompt in Claude Code's own message background, replies in a subtle rounded frame |
+| `outline` | No fill: prompts in a blue frame, replies in an orange one |
 | `claude-warm` | Terracotta prompts, charcoal replies; light: sand and paper |
 | `night-blue` | Navy prompts, near-black replies; light: ice and mist |
-| `outline` | No fill: prompts in a blue frame, replies in an orange one |
+
+The dark variants, each from a real session:
+
+| `native` | `outline` |
+|---|---|
+| ![native theme](docs/screenshots/native.png) | ![outline theme](docs/screenshots/outline.png) |
+| **`claude-warm`** | **`night-blue`** |
+| ![claude-warm theme](docs/screenshots/claude-warm.png) | ![night-blue theme](docs/screenshots/night-blue.png) |
 
 ### Your own
 
@@ -75,7 +79,19 @@ Each box takes `bg` (background) and/or `border` (rounded frame). A value is a h
 
 ## Development
 
+Run the mod straight from a checkout; edits reload when a turn ends:
+
+```
+claude --plugin-dir path/to/boxed-ui
+```
+
 ```
 claude plugin validate .
 claude plugin test .
 ```
+
+`scripts/screenshots/make.sh [theme ...]` records a short real session per theme in tmux and renders it to `docs/screenshots/`. It needs tmux, Python 3, Google Chrome (`CHROME=` for another path) and a logged-in `claude`; each theme costs one short model turn.
+
+## License
+
+[MIT](LICENSE)
