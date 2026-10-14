@@ -56,14 +56,14 @@ export function styleFor(theme: Theme | undefined, m: Mode, part: 'prompt' | 're
   return (theme[m] ?? theme.dark ?? theme.light)?.[part]
 }
 
-// A reply row from the engine starts with its own blank line, so a reply box pads only below
-// to sit even; a prompt is drawn here and pads both sides, framed or filled alike.
-function boxProps(s: BoxStyle, part: 'prompt' | 'reply') {
+// A row the engine draws (a reply, a dialog answer) starts with its own blank line, so a box
+// around it pads only below to sit even; a prompt is drawn here and pads both sides.
+function boxProps(s: BoxStyle, wrapsEngineRow: boolean) {
   return {
     flexDirection: 'column' as const,
     marginTop: 1,
     paddingX: s.border ? 1 : 2,
-    paddingTop: part === 'reply' ? 0 : 1,
+    paddingTop: wrapsEngineRow ? 0 : 1,
     paddingBottom: 1,
     ...(s.bg ? { backgroundColor: s.bg } : {}),
     ...(s.border ? { borderStyle: 'round', borderColor: s.border } : {}),
@@ -173,7 +173,7 @@ export const register: Register = on => {
     if (!style || e.surface !== 'terminal' || e.props.task || e.props.from) return next(e)
     const { Box, Text } = $.ui.resolve(e)
     return (
-      <Box {...boxProps(style, 'prompt')}>
+      <Box {...boxProps(style, false)}>
         <Box flexDirection="row">
           <Text color="subtle">❯ </Text>
           <Text>{e.props.text}</Text>
@@ -191,7 +191,7 @@ export const register: Register = on => {
     const inner = await next(e)
     if (!inner) return inner
     const { Box } = $.ui.resolve(e)
-    return <Box {...boxProps(style, 'prompt')}>{inner}</Box>
+    return <Box {...boxProps(style, true)}>{inner}</Box>
   })
 
   on('ui.render', { component: 'AssistantMessage' }, async ($, e, next) => {
@@ -201,6 +201,6 @@ export const register: Register = on => {
     const inner = await next(e)
     if (!inner) return inner
     const { Box } = $.ui.resolve(e)
-    return <Box {...boxProps(style, 'reply')}>{inner}</Box>
+    return <Box {...boxProps(style, true)}>{inner}</Box>
   })
 }

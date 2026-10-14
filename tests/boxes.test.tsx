@@ -109,6 +109,8 @@ test('answers given in the question dialog sit in the prompt box', async ($, on)
   const json = JSON.stringify(await $.ui.render(answer({})))
   expect(json).toContain('engine-result')
   expect(json).toContain('#4a2a1c')
+  // the engine's row brings its own blank line on top
+  expect(json).toContain('"paddingTop":0')
 })
 
 test('other tool results and a refused dialog keep their own row', async ($, on) => {
