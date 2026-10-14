@@ -1,6 +1,6 @@
 import type { EngineInterface, Register } from 'claude-code'
 
-// Boxes around the person's prompts and Claude's replies. The content inside stays the
+// Boxes around the person's prompts (and dialog answers) and Claude's replies. The content inside stays the
 // engine's own drawing (next(e)), so markdown, code, tables and links render as without the mod.
 
 export type BoxStyle = { bg?: string; border?: string }
@@ -181,6 +181,18 @@ export const register: Register = on => {
         </Box>
       </Box>
     )
+  })
+
+  // The answers given in the AskUserQuestion dialog are the person's words too, so they share
+  // the prompt box. Wrapped, not redrawn: the row has no background of its own underneath.
+  on('ui.render', { component: 'ToolResult' }, async ($, e, next) => {
+    await init($)
+    const style = styleFor(themes[active], mode, 'prompt')
+    if (!style || e.surface !== 'terminal' || e.props.tool !== 'AskUserQuestion' || e.props.isErrored) return next(e)
+    const inner = await next(e)
+    if (!inner) return inner
+    const { Box } = $.ui.resolve(e)
+    return <Box {...boxProps(style, 'prompt')}>{inner}</Box>
   })
 
   on('ui.render', { component: 'AssistantMessage' }, async ($, e, next) => {

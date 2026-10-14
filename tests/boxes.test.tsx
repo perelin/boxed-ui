@@ -23,6 +23,10 @@ function world(on: On, opts: { theme: string; active?: string; mode?: string }) 
     const { Text } = $.ui.resolve(e)
     return <Text>engine-reply</Text>
   })
+  on('ui.render', { component: 'ToolResult' }, ($, e) => {
+    const { Text } = $.ui.resolve(e)
+    return <Text>engine-result</Text>
+  })
   on('ui.render', { component: 'UserMessage' }, ($, e) => {
     const { Text } = $.ui.resolve(e)
     return <Text>engine-prompt</Text>
@@ -92,4 +96,25 @@ test('auto with a pinned light mode picks the light variant', async ($, on) => {
   world(on, { theme: 'auto', active: 'claude-warm', mode: 'light' })
   const json = JSON.stringify(await $.ui.render(reply))
   expect(json).toContain('#f6f2ec')
+})
+
+const answer = (props: Record<string, unknown>) => ({
+  surface: 'terminal', component: 'ToolResult', requestId: 't1',
+  props: { tool_use_id: 't1', tool: 'AskUserQuestion', output: { questions: [], answers: {} }, isErrored: false, ...props },
+}) as any
+
+test('answers given in the question dialog sit in the prompt box', async ($, on) => {
+  world(on, { theme: 'dark', active: 'claude-warm' })
+  const json = JSON.stringify(await $.ui.render(answer({})))
+  expect(json).toContain('engine-result')
+  expect(json).toContain('#4a2a1c')
+})
+
+test('other tool results and a refused dialog keep their own row', async ($, on) => {
+  world(on, { theme: 'dark', active: 'claude-warm' })
+  for (const props of [{ tool: 'Bash', output: { stdout: '', stderr: '', interrupted: false } }, { isErrored: true }]) {
+    const json = JSON.stringify(await $.ui.render(answer(props)))
+    expect(json).toContain('engine-result')
+    expect(json).not.toContain('#4a2a1c')
+  }
 })
