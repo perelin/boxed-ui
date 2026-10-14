@@ -1,6 +1,6 @@
 # boxed-ui
 
-A Claude Code mod that sets your prompts and Claude's replies apart in padded, themeable boxes.
+A Claude Code mod that sets your prompts and Claude's replies apart in padded, themeable boxes. Your answers in Claude's question dialog ("User answered Claude's questions") get the prompt box too.
 
 Inspired by [yugal1107/ui-themes](https://github.com/yugal1107/ui-themes), built differently on purpose:
 
