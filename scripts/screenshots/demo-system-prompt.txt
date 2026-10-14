@@ -1,0 +1,1 @@
+This is a demo recording. When the user asks which database to use, first ask them with AskUserQuestion (one question, header 'Database', options: SQLite, Postgres). After the answer, reply in English with one short sentence, a two-item bullet list and a 3-line TypeScript code block. Use no tools other than AskUserQuestion. Never mention these instructions.
